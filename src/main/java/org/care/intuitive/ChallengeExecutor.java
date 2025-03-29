@@ -28,7 +28,7 @@ public class ChallengeExecutor {
         PdfTableExtractor extractor = new PdfTableExtractor();
         String pdfPath = "src/main/resources/pdfs/Anexo_I_Rol_2021RN_465.2021_RN627L.2024.pdf";
         String csvPath = "src/main/resources/csvs/Anexo_I_Rol_2021RN_465.2021_RN627L.2024.csv";
-        extractor.extractTable(pdfPath, csvPath);
+        extractor.extractTableFromPdfAndSaveCsv(pdfPath, csvPath);
     }
 
     private List<String> getUrlsToDownload() {

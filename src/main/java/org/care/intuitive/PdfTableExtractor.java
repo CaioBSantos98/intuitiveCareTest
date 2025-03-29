@@ -13,8 +13,8 @@ import java.util.List;
 
 
 public class PdfTableExtractor {
-    public void extractTable(String pdfPath, String csvPath) {
-        buildDirIfNotExist(csvPath);
+    public void extractTableFromPdfAndSaveCsv(String pdfPath, String csvPath) {
+        createDirIfNotExist(csvPath);
 
         try (PDDocument document = Loader.loadPDF(new File(pdfPath));
              FileWriter fileWriter = new FileWriter(csvPath);
@@ -31,17 +31,21 @@ public class PdfTableExtractor {
                     List<List<RectangularTextContainer>> rows = table.getRows();
 
                     for (List<RectangularTextContainer> cells : rows) {
+                        StringBuilder row = new StringBuilder();
 
                         for (RectangularTextContainer content : cells) {
-                            String text;
-                            if (content.getText().isBlank() || content.getText().isEmpty()) {
-                                text = "Vazio";
-                            } else {
-                                text = content.getText().replace("\r", " ");
-                            }
-                            System.out.print(text + "|");
+                            String text = content.getText().isBlank() ? " " : content.getText().replace("\r", " ");
+                            row.append(text).append(",");
                         }
-                        System.out.println();
+
+                        if (!row.isEmpty()) {
+                            row.setLength(row.length() - 1);
+                        }
+
+                        if (!row.toString().equals(" ")) {
+                            writer.write(row.toString());
+                            writer.newLine();
+                        }
                     }
                 }
             }
@@ -52,7 +56,7 @@ public class PdfTableExtractor {
         }
     }
 
-    private void buildDirIfNotExist(String csvPath) {
+    private void createDirIfNotExist(String csvPath) {
         File csvFile = new File(csvPath);
         File parentDir = csvFile.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
