@@ -27,7 +27,28 @@ public class FileZipper {
                     addFileToZip(file, zipOut);
                 }
             }
-            System.out.println("ZIP criado em: " + zipFile.getAbsolutePath());
+            System.out.println("ZIP criado em: " + zipFile.getParent());
+
+        } catch (IOException e) {
+            System.out.println("Erro ao criar ZIP: " + e.getMessage());
+        }
+    }
+
+    public void zipFile(File file, String zipName) {
+        if (!file.exists() || !file.isFile()) {
+            System.out.println("Arquivo não encontrado ou não é um arquivo válido.");
+            return;
+        }
+
+        String zipFileName = (zipName != null && !zipName.isBlank()) ? zipName : file.getName() + ".zip";
+        File zipFile = new File(file.getParent(), zipFileName);
+
+        try (FileOutputStream fos = new FileOutputStream(zipFile);
+             ZipOutputStream zipOut = new ZipOutputStream(fos)) {
+
+            addFileToZip(file, zipOut);
+
+            System.out.println("ZIP criado em: " + file.getParent());
 
         } catch (IOException e) {
             System.out.println("Erro ao criar ZIP: " + e.getMessage());
