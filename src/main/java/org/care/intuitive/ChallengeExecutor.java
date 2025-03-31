@@ -32,7 +32,7 @@ public class ChallengeExecutor {
         String pdfPath = "src/main/resources/pdfs/Anexo_I_Rol_2021RN_465.2021_RN627L.2024.pdf";
         String csvPath = "src/main/resources/csvs/Anexo_I_Rol_2021RN_465.2021_RN627L.2024.csv";
         File csvFile = extractor.extractTableFromPdfAndSaveCsv(pdfPath, csvPath);
-        fileZipper.zipFile(csvFile, "Teste_" + csvFile.getName().replace(".csv", " ") + ".zip");
+        fileZipper.zipFile(csvFile, "Teste_" + csvFile.getName().replace(".csv", "") + ".zip");
     }
 
     private List<String> getUrlsToDownload() {
