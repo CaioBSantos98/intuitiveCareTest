@@ -23,6 +23,7 @@ public class FileZipper {
             }
 
             for (File file : files) {
+                // Condicional adicionada para evitar possivel loop infinito caso tenha algum arquivo zip na pasta
                 if (file.isFile() && !file.getAbsolutePath().equals(zipFile.getAbsolutePath())) {
                     addFileToZip(file, zipOut);
                 }

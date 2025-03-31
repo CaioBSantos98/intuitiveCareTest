@@ -15,8 +15,7 @@ import java.util.List;
 
 public class PdfTableExtractor {
     public File extractTableFromPdfAndSaveCsv(String pdfPath, String csvPath) {
-        createDirIfNotExist(csvPath);
-        File csvFile = new File(csvPath);
+        File csvFile = createDirIfNotExist(csvPath);
 
         try (PDDocument document = Loader.loadPDF(new File(pdfPath));
              FileWriter fileWriter = new FileWriter(csvFile);
@@ -36,8 +35,8 @@ public class PdfTableExtractor {
                         StringBuilder row = new StringBuilder();
 
                         for (RectangularTextContainer content : cells) {
-                            String text = content.getText().isBlank() ? " " : content.getText().replace("\r", " ");
-                            row.append(text).append(",");
+                            String text = content.getText().isBlank() ? "" : content.getText().replace("\r", "");
+                            row.append("\"").append(text).append("\"").append(",");
                         }
 
                         if (!row.isEmpty()) {
@@ -61,12 +60,13 @@ public class PdfTableExtractor {
         }
     }
 
-    private void createDirIfNotExist(String csvPath) {
+    private File createDirIfNotExist(String csvPath) {
         File csvFile = new File(csvPath);
         File parentDir = csvFile.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
             parentDir.mkdirs();
         }
+        return csvFile;
     }
 
     private void replaceAbbreviations(File file) {
