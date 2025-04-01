@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "f01f15f2-cb9d-46af-a707-5a86454d3996",
+		"name": "Intuitive Care Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "36839124"
+	},
+	"item": [
+		{
+			"name": "Busca",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/search?query=bradesco",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "bradesco"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
