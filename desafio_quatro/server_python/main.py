@@ -1,7 +1,16 @@
 import fastapi
 import csv
+from fastapi.middleware.cors import CORSMiddleware
 
 app = fastapi.FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"], 
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+)
 
 def read_csv():
     operadoras = []
@@ -12,6 +21,10 @@ def read_csv():
     return operadoras
 
 dados_operadoras = read_csv();
+
+def csv_para_json(csv_string):
+    return csv_string
+
 
 @app.get("/search")
 def read_operadoras(query: str):
